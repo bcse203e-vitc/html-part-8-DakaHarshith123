@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table Creator</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Dynamic Table Generator</h2>
+    <label>Rows: <input type="number" id="rows" min="1"></label>
+    <label>Columns: <input type="number" id="columns" min="1"></label>
+    <button onclick="generateTable()">Generate Table</button>
+    
+    <div id="tableContainer"></div>
+
+    <script>
+        function generateTable() {
+            let rows = document.getElementById('rows').value;
+            let cols = document.getElementById('columns').value;
+            let container = document.getElementById('tableContainer');
+            container.innerHTML = '';
+
+            let table = document.createElement('table');
+            for (let i = 0; i < rows; i++) {
+                let tr = document.createElement('tr');
+                for (let j = 0; j < cols; j++) {
+                    let td = document.createElement('td');
+                    td.innerHTML = `(${i + 1}, ${j + 1})`;
+                    tr.appendChild(td);
+                }
+                let deleteRowBtn = document.createElement('button');
+                deleteRowBtn.innerHTML = "Delete Row";
+                deleteRowBtn.onclick = () => table.deleteRow(i);
+                tr.appendChild(deleteRowBtn);
+                table.appendChild(tr);
+            }
+            container.appendChild(table);
+        }
+    </script>
+</body>
+</html>
