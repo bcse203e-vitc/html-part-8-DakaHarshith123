@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+</head>
+<body>
+    <h2>Countdown Timer</h2>
+    <label>Enter Time (seconds): <input type="number" id="timeInput" min="1"></label>
+    <button onclick="startCountdown()">Start</button>
+    <p id="timerDisplay">Time: 0s</p>
+    <audio id="alarmSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
+
+    <script>
+        let countdown;
+        
+        function startCountdown() {
+            clearInterval(countdown); // Reset previous countdown
+            let time = document.getElementById('timeInput').value;
+            let display = document.getElementById('timerDisplay');
+
+            countdown = setInterval(() => {
+                if (time > 0) {
+                    display.textContent = `Time: ${time}s`;
+                    time--;
+                } else {
+                    clearInterval(countdown);
+                    display.textContent = "Time's up!";
+                    document.getElementById('alarmSound').play(); // Play alarm sound
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
