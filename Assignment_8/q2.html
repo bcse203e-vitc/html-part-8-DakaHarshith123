@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        input {
+            display: block;
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 2px solid gray;
+        }
+        .valid {
+            border-color: green;
+        }
+        .invalid {
+            border-color: red;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Sign-Up Form</h2>
+    <form id="signupForm">
+        <input type="text" id="name" placeholder="Name">
+        <span class="error" id="nameError"></span>
+        
+        <input type="email" id="email" placeholder="Email">
+        <span class="error" id="emailError"></span>
+        
+        <input type="password" id="password" placeholder="Password">
+        <span class="error" id="passwordError"></span>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('name').addEventListener('input', function() {
+            let value = this.value.trim();
+            let error = document.getElementById('nameError');
+            if (value === '') {
+                error.textContent = "Name must not be empty.";
+                this.classList.add('invalid');
+            } else {
+                error.textContent = "";
+                this.classList.remove('invalid');
+                this.classList.add('valid');
+            }
+        });
+
+        document.getElementById('email').addEventListener('input', function() {
+            let pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            let error = document.getElementById('emailError');
+            if (!pattern.test(this.value)) {
+                error.textContent = "Enter a valid email.";
+                this.classList.add('invalid');
+            } else {
+                error.textContent = "";
+                this.classList.remove('invalid');
+                this.classList.add('valid');
+            }
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            let pattern = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+            let error = document.getElementById('passwordError');
+            if (!pattern.test(this.value)) {
+                error.textContent = "Password must be at least 8 characters, 1 uppercase & 1 number.";
+                this.classList.add('invalid');
+            } else {
+                error.textContent = "";
+                this.classList.remove('invalid');
+                this.classList.add('valid');
+            }
+        });
+    </script>
+</body>
+</html>
